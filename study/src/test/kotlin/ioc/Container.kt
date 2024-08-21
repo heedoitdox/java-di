@@ -41,7 +41,7 @@ class Container : FreeSpec({
             val sampleObject = applicationContext.getBean("sampleObject", SampleObject::class.java)
 
             // 조회한 Bean 객체가 SampleObject 타입인지 확인합니다.
-            sampleObject.shouldBeTypeOf<Object>()
+            sampleObject.shouldBeTypeOf<SampleObject>()
         }
 
         """
@@ -57,7 +57,7 @@ class Container : FreeSpec({
             val sampleObject = applicationContext.getBean("sampleObject", SampleObject::class.java)
 
             // 조회한 Bean 객체가 SampleObject 타입인지 확인합니다.
-            sampleObject.shouldBeTypeOf<Object>()
+            sampleObject.shouldBeTypeOf<SampleObject>()
         }
     }
 })

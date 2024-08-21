@@ -49,7 +49,7 @@ class Bean : FreeSpec({
         하지만 스프링은 표준 자바를 지원하므로 추가적인 인터페이스를 구현할 필요가 없습니다.
         @see AppConfig#sampleObject()
         """ {
-            applicationContext.isBeanNameInUse("sampleObject") shouldBe false
+            applicationContext.isBeanNameInUse("sampleObject") shouldBe true
         }
 
         """
@@ -60,7 +60,7 @@ class Bean : FreeSpec({
         XML 파일로 구성 메타데이터를 작성한다면 factory-method 속성을 사용하여 팩터리 메서드를 지정할 수 있습니다.
         @see AppConfig#sampleFactoryObject()
         """ {
-            applicationContext.isBeanNameInUse("sampleFactoryObject") shouldBe false
+            applicationContext.isBeanNameInUse("sampleFactoryObject") shouldBe true
         }
     }
 
@@ -75,7 +75,7 @@ class Bean : FreeSpec({
     일관된 Bean 이름은 구성(Configuration)을 더 쉽게 읽고 이해할 수 있습니다.
     또한 Spring AOP를 사용할 때 이름으로 Advice를 적용할 때 많은 도움이 됩니다.
     """ {
-        applicationContext.isBeanNameInUse("sampleObject") shouldBe false
+        applicationContext.isBeanNameInUse("sampleObject") shouldBe true
     }
 
     """
@@ -87,7 +87,7 @@ class Bean : FreeSpec({
     Java 구성은 @Bean 어노테이션의 name 속성을 사용하여 Bean 별칭을 지정할 수 있습니다.
     @see AppConfig#sampleAlias()
     """ {
-        applicationContext.isBeanNameInUse("firstName") shouldBe false
-        applicationContext.isBeanNameInUse("secondName") shouldBe false
+        applicationContext.isBeanNameInUse("firstName") shouldBe true
+        applicationContext.isBeanNameInUse("secondName") shouldBe true
     }
 })

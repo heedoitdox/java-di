@@ -10,7 +10,7 @@ public class SampleValue {
   private final String defaultValue;
 
   public SampleValue(@Value("${value.name}") final String value,
-                     @Value("${value.default:기본값}") final String defaultValue) {
+                     @Value("${value.default:기본값2}") final String defaultValue) {
     this.value = value;
     this.defaultValue = defaultValue;
   }

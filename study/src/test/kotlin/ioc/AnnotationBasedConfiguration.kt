@@ -44,7 +44,7 @@ class AnnotationBasedConfiguration : FreeSpec({
             val movieRecommender = applicationContext.getBean(MovieRecommender::class.java)
             val customerPreferenceDao = movieRecommender.customerPreferenceDao
 
-            customerPreferenceDao.shouldBeNull()
+            customerPreferenceDao.shouldNotBeNull()
         }
 
         """
@@ -72,7 +72,7 @@ class AnnotationBasedConfiguration : FreeSpec({
             val kakaotalkMessageSender = messageService.getMessageSender("kakaotalkMessageSender")
 
             // 생성자에 인터페이스만 명시했는데, 스프링이 자동으로 Bean 구현체를 찾아서 주입했습니다.
-            kakaotalkMessageSender.shouldBeTypeOf<Object>()
+            kakaotalkMessageSender.shouldBeTypeOf<KakaotalkMessageSender>()
         }
 
         """
@@ -89,7 +89,7 @@ class AnnotationBasedConfiguration : FreeSpec({
             // 하지만 setNoImplements() 메서드에 @Autowired(required = false)를 설정했기 때문에 예외가 발생하지 않습니다.
             val noImplements = simpleMovieLister.noImplements
 
-            noImplements.shouldNotBeNull()
+            noImplements.shouldBeNull()
         }
     }
 
@@ -112,7 +112,7 @@ class AnnotationBasedConfiguration : FreeSpec({
         val primaryConfig = applicationContext.getBean(PrimaryConfig::class.java)
         val movieCatalog = primaryConfig.movieCatalog
 
-        movieCatalog.shouldBeTypeOf<Object>()
+        movieCatalog.shouldBeTypeOf<MovieCatalog>()
     }
 
     """
@@ -132,7 +132,7 @@ class AnnotationBasedConfiguration : FreeSpec({
         val qualifierConfig = applicationContext.getBean(QualifierConfig::class.java)
         val movieCatalog = qualifierConfig.movieCatalog
 
-        movieCatalog.shouldBeTypeOf<Object>()
+        movieCatalog.shouldBeTypeOf<MovieCatalog>()
     }
 
     """
@@ -146,6 +146,6 @@ class AnnotationBasedConfiguration : FreeSpec({
 
         // defaultValue는 외부 프로퍼티에 정의되어 있지 않습니다.
         // @Value("${value.default:기본값}")에서 설정한 문자열 "기본값"이 주입됩니다.
-        sampleValue.defaultValue shouldBe ""
+        sampleValue.defaultValue shouldBe "기본값2"
     }
 })

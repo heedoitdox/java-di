@@ -1,6 +1,7 @@
 package annotation;
 
 import annotation.sample.MovieCatalog;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +12,9 @@ public class QualifierConfig {
 
   private MovieCatalog movieCatalog;
 
-  @Autowired
-//  @Resource(name = "secondMovieCatalog") // @Autowired와 @Qualifier를 사용하지 않고 @Resource를 사용할 수 있습니다.
-  public void setMovieCatalog(@Qualifier("secondMovieCatalog") final MovieCatalog movieCatalog) {
+//  @Autowired
+  @Resource(name = "secondMovieCatalog") // @Autowired와 @Qualifier를 사용하지 않고 @Resource를 사용할 수 있습니다.
+  public void setMovieCatalog(final MovieCatalog movieCatalog) {  // @Qualifier("secondMovieCatalog")
     this.movieCatalog = movieCatalog;
   }
 

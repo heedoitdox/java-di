@@ -5,6 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.kotest.matchers.types.shouldBeTypeOf
 import org.springframework.beans.factory.BeanFactory
+import org.springframework.beans.factory.support.DefaultListableBeanFactory
 import org.springframework.beans.factory.support.StaticListableBeanFactory
 import org.springframework.context.ApplicationContext
 import org.springframework.context.support.StaticApplicationContext
@@ -31,7 +32,7 @@ class Introduction : FreeSpec({
         val sampleObject = beanFactory.getBean("sampleObject", SampleObject::class.java)
 
         // 조회한 Bean 객체가 SampleObject 타입인지 확인합니다.
-        sampleObject.shouldBeTypeOf<Object>()
+        sampleObject.shouldBeTypeOf<SampleObject>()
     }
 
     """
@@ -50,10 +51,10 @@ class Introduction : FreeSpec({
         val sampleObject = applicationContext.getBean("sampleObject", SampleObject::class.java)
 
         // 조회한 Bean 객체가 SampleObject 타입인지 확인합니다.
-        sampleObject.shouldBeTypeOf<Object>()
+        sampleObject.shouldBeTypeOf<SampleObject>()
 
         // ApplicationContext가 BeanFactory를 포함하는지 확인합시다.
-        applicationContext.shouldBeInstanceOf<Object>()
+        applicationContext.shouldBeInstanceOf<StaticApplicationContext>()
     }
 
     """
@@ -73,6 +74,6 @@ class Introduction : FreeSpec({
         // beanObject 객체는 Bean입니다.
         val beanObject = applicationContext.getBean("sampleObject", SampleObject::class.java)
 
-        applicationContext.containsBean("sampleObject") shouldBe false
+        applicationContext.containsBean("notBeanObject") shouldBe false
     }
 })

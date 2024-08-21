@@ -61,7 +61,7 @@ class Dependencies : FreeSpec({
                 applicationContext.getBean("constructorMovieLister", ConstructorMovieLister::class.java)
 
             // 스프링 컨테이너가 DefaultMovieFinder를 주입했는지 확인합시다.
-            constructorMovieLister.movieFinder.shouldBeTypeOf<Object>()
+            constructorMovieLister.movieFinder.shouldBeTypeOf<DefaultMovieFinder>()
         }
 
         """
@@ -78,7 +78,7 @@ class Dependencies : FreeSpec({
             val setterMovieLister = applicationContext.getBean("setterMovieLister", SetterMovieLister::class.java)
 
             // 스프링 컨테이너가 DefaultMovieFinder를 주입했는지 확인합시다.
-            setterMovieLister.movieFinder.shouldBeTypeOf<Object>()
+            setterMovieLister.movieFinder.shouldBeTypeOf<DefaultMovieFinder>()
         }
 
         """
@@ -93,7 +93,7 @@ class Dependencies : FreeSpec({
         권장되지는 않지만 setter 주입을 사용하여 순환 의존성을 구성할 수 있습니다.
         """ {
             // CircularDependencyConfig 클래스에서 ACircularObject와 BCircularObject가 서로 의존하도록 설정했습니다.
-            shouldThrow<BeanCurrentlyInCreationException> {
+            shouldThrow<UnsatisfiedDependencyException> {
                 AnnotationConfigApplicationContext(CircularDependencyConfig::class.java)
             }
         }

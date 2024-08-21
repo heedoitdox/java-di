@@ -5,6 +5,7 @@ import jakarta.inject.Named;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 // 스프링이 아닌 자바 표준의 @Inject와 @Named를 사용해봅시다.
 @Named
@@ -29,6 +30,7 @@ public class MovieRecommender {
   // 컬렉션 타입도 자동 주입이 가능합니다.
   @Inject
   public void setMovieCatalogs(final Map<String, MovieCatalog> movieCatalogs) {
+    movieCatalogs.put("", new MovieCatalog());
     this.movieCatalogs = movieCatalogs;
   }
 

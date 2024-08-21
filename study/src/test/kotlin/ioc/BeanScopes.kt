@@ -1,6 +1,7 @@
 package ioc
 
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
@@ -46,7 +47,7 @@ class BeanScopes : FreeSpec({
         val secondSingletonObject = applicationContext.getBean("singletonBean", SampleObject::class.java)
 
         // 싱글톤 스코프로 정의된 Bean은 여러 번 요청해도 동일한 인스턴스를 반환합니다.
-        firstSingletonObject shouldBe null // secondSingletonObject
+        firstSingletonObject shouldBe secondSingletonObject // secondSingletonObject
     }
 
     """
@@ -66,7 +67,7 @@ class BeanScopes : FreeSpec({
         val secondPrototypeObject = applicationContext.getBean("prototypeBean", SampleObject::class.java)
 
         // 프로토타입 스코프로 정의된 Bean은 요청할 때마다 새로운 인스턴스를 생성합니다.
-        firstPrototypeObject shouldBe null // secondPrototypeObject
+        firstPrototypeObject shouldNotBe secondPrototypeObject // secondPrototypeObject
     }
 
     """
@@ -92,7 +93,7 @@ class BeanScopes : FreeSpec({
             firstPrototypeIntoSingleton shouldBe secondPrototypeIntoSingleton
 
             // ❓프로토타입 Bean인데 왜 같은 인스턴스를 반환할까요?
-            firstPrototypeIntoSingleton.prototypeBean shouldBe null // secondPrototypeIntoSingleton.prototypeBean
+            firstPrototypeIntoSingleton.prototypeBean shouldBe secondPrototypeIntoSingleton.prototypeBean // secondPrototypeIntoSingleton.prototypeBean
         }
 
         """
@@ -109,7 +110,7 @@ class BeanScopes : FreeSpec({
             firstSingletonIntoPrototype shouldNotBe secondSingletonIntoPrototype
 
             // 프로토타입 Bean이 의존하는 싱글톤 Bean은 동일한 인스턴스를 사용합니다.
-            firstSingletonIntoPrototype.singletonBean shouldBe null // secondSingletonIntoPrototype.singletonBean
+            firstSingletonIntoPrototype.singletonBean shouldBe secondSingletonIntoPrototype.singletonBean // secondSingletonIntoPrototype.singletonBean
         }
     }
 })
